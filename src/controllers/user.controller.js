@@ -1,5 +1,6 @@
 import { userModel as User } from "../model/user.model.js";
 import bcrypt from "bcrypt";
+
 //Probando la ruta de prueba
 
 export const testUser = (req, res) => {
@@ -39,7 +40,7 @@ export const register = async (req, res) => {
     }
 
     // Encriptar la contraseña
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const pass = await bcrypt.hash(password, 10);
 
     // Crear nuevo usuario
     const newUser = new User({
@@ -47,7 +48,7 @@ export const register = async (req, res) => {
       surname,
       nick,
       email,
-      password: hashedPassword,
+      password: pass,
     });
 
     // Guardar usuario en la base de datos
@@ -86,5 +87,11 @@ export const findUser = async (req, res) => {
       message: "acción de buscar usuario",
       users,
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send({
+      status: "error",
+      message: "Error al buscar usuario",
+      error: error.message,
+    });
+  }
 };

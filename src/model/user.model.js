@@ -40,6 +40,12 @@ const userSchema = Schema({
   password: {
     type: String,
     required: [true, "pasword required"],
+    validate: {
+      validator: (value) => {
+        return validator.isLength(value, { min: 5, max: 12 });
+      },
+      message: "La contraseña debe tener entre 6 y 12 caracteres",
+    },
   },
   role: {
     type: String,
