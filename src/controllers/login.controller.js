@@ -1,6 +1,7 @@
 import { userModel as User } from "../model/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { DateTime } from "luxon";
 import { JWT_SECRET, JWT_EXPIRES } from "../config.js";
 
 const login = async (req, res) => {
@@ -32,6 +33,9 @@ const login = async (req, res) => {
       surname: user.surname,
       email: user.email,
       nick: user.nick,
+      role: user.role,
+      iat: DateTime.now().toISO(),
+      expire: JWT_EXPIRES + " Days",
       token: token,
     };
 

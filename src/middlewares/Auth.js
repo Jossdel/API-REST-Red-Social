@@ -5,14 +5,14 @@ import { JWT_SECRET } from "../config.js";
 const verify = Router();
 
 verify.use((req, res, next) => {
-  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  let token = req.headers["x-access-token"] || req.headers["authorization"];
   if (!token) {
     return res.status(401).send({
       message: " No autorizado",
       status: 401,
     });
   }
-  if (token.startsWith("Bearer ")) {
+  if (token.startsWith("Bearer")) {
     token = token.slice(7, token.length);
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
       if (err) {

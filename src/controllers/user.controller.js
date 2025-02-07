@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 export const testUser = (req, res) => {
   return res.status(200).send({
-    mesage: "Probando ruta User",
+    mesage: "Autorizacion Validate",
   });
 };
 
