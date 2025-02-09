@@ -5,18 +5,21 @@ const userSchema = Schema({
   name: {
     type: String,
     required: [true, "name is required"],
+    trim: true,
   },
   surname: {
     type: String,
   },
   nick: {
+    trim: true,
     type: String,
     required: true,
     unique: true,
     validate: {
       validator: (value) => {
         return (
-          validator.isLength(value, { min: 4, max: 10 }) &&
+          value,
+          validator.isLength === 6 && validator.isLength <= 12,
           validator.isAlphanumeric(value)
         );
       },
@@ -25,6 +28,7 @@ const userSchema = Schema({
     },
   },
   email: {
+    trim: true,
     type: String,
     unique: true,
     lowercase: true,
@@ -38,11 +42,15 @@ const userSchema = Schema({
     },
   },
   password: {
+    trim: true,
     type: String,
     required: [true, "pasword required"],
     validate: {
       validator: (value) => {
-        return validator.isLength(value, { min: 5, max: 12 });
+        return validator.isLength(
+          value,
+          validator.isLength === 6 && validator.isLength <= 12
+        );
       },
       message: "La contraseña debe tener entre 6 y 12 caracteres",
     },

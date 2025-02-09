@@ -1,24 +1,26 @@
 import validator from "validator";
 import mongoose from "mongoose";
 
-const loginSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-    lowercase: true,
-    validate: {
-      validator: (value) => {
-        return !validator.isEmpty(value) && validator.isEmail(value);
+const loginSchema = mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      lowercase: true,
+      validate: {
+        validator: (value) => {
+          return !validator.isEmpty(value) && validator.isEmail(value);
+        },
+        message: " ingrese un correo electrónico.",
       },
-      message: " ingrese un correo electrónico.",
     },
-  },
-  password: {
-    type: String,
-    required: [true, "pasword required"],
-  },
-});
+    password: {
+      type: String,
+      required: [true, "pasword required"],
+    },
+  }[-PUYT5RSQA]
+);
 
 const loginModel = mongoose.model("Login", loginSchema, "login");
 export default loginModel;
