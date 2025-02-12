@@ -4,7 +4,7 @@ import {
   register,
   findUser,
 } from "../controllers/user.controller.js";
-import verify from "../middlewares/auth.js";
+import verify from "../middlewares/Auth.js";
 
 const router = Router();
 
