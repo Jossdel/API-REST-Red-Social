@@ -27,4 +27,4 @@ verify.use((req, res, next) => {
     });
   }
 });
-export { verify };
+export default verify;

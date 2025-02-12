@@ -1,10 +1,15 @@
 import { Router } from "express";
-import { testUser, register } from "../controllers/user.controller.js";
-import { verify } from "../middlewares/auth.js";
+import {
+  testUser,
+  register,
+  findUser,
+} from "../controllers/user.controller.js";
+import verify from "../middlewares/auth.js";
 
 const router = Router();
 
-router.get("/test", verify, testUser);
-router.post("/user", register);
+router.get("/", verify, testUser);
+router.post("/", register);
+router.get("/:id", findUser);
 
 export { router };
