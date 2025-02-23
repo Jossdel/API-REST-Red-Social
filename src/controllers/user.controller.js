@@ -3,12 +3,6 @@ import bcrypt from "bcrypt";
 
 //Probando la ruta de prueba
 
-export const testUser = (req, res) => {
-  return res.status(200).send({
-    mesage: "Autorizacion Validate",
-  });
-};
-
 export const register = async (req, res) => {
   try {
     const { name, nick, surname, email, password } = req.body;
