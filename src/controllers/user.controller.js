@@ -1,5 +1,6 @@
 import { userModel as User } from "../model/user.model.js";
 import bcrypt from "bcrypt";
+import mongoosePagination from "mongoose-pagination";
 
 //Probando la ruta de prueba
 
@@ -70,21 +71,39 @@ export const register = async (req, res) => {
   }
 };
 
-export const findUser = async (req, res) => {
-  const id = req.params.id;
+// Listar usuarios
 
+export const listar = async (req, res) => {
   try {
-    const users = await User.findById(id);
+    let page = parseInt(req.params.page) || 1;
+    if (page < 1) page = 1;
 
-    res.send({
+    const itemsPerPage = 5;
+
+    const users = await User.find().sort("_id").paginate(page, itemsPerPage);
+
+    if (!users || users.length === 0) {
+      return res.status(404).send({
+        status: "error",
+        message: "No hay usuarios para mostrar",
+      });
+    }
+
+    const total = await User.countDocuments();
+
+    res.status(200).send({
       status: "success",
-      message: "acción de buscar usuario",
+      message: "Listar usuarios",
       users,
+      itemsPerPage,
+      total,
+      totalPages: Math.ceil(total / itemsPerPage),
+      page,
     });
   } catch (error) {
     res.status(500).send({
       status: "error",
-      message: "Error al buscar usuario",
+      message: "Error en el servidor",
       error: error.message,
     });
   }
